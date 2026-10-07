@@ -6,11 +6,12 @@
   "infra": "appsApi",
   "deployments": [
     {
-      "org": "cog-dune",
-      "project": "dune-apps",
-      "baseUrl": "https://your-cluster-name.cognitedata.com",
+      "org": "cog-staging-hackathon",
+      "project": "qs-agents-sandbox",
+      "cluster": "bluefield",
+      "baseUrl": "https://bluefield.cognitedata.com",
       "deployClientId": "",
-      "deploySecretName": "COG_DUNE_APPS_DUNE_APPS"
+      "deploySecretName": "COG_CERT_APP"
     }
   ]
 }

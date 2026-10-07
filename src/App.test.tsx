@@ -1,9 +1,9 @@
-import { render, screen, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
 import type { HostAppAPI, ConnectToHostAppResult } from '@cognite/app-sdk';
 import { CogniteClient } from '@cognite/sdk';
+import { render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import type { ComponentProps } from 'react';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import App from './App';
 
