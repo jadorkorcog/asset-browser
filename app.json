@@ -1,0 +1,16 @@
+{
+  "name": "Jeffery Adorkor Certification App",
+  "description": "My app submission required for the Flows certification ",
+  "externalId": "jadorkor-certification-app",
+  "versionTag": "0.0.1",
+  "infra": "appsApi",
+  "deployments": [
+    {
+      "org": "cog-dune",
+      "project": "placeholder",
+      "baseUrl": "https://placeholder.cognitedata.com",
+      "deployClientId": "",
+      "deploySecretName": "COG_DUNE_PLACEHOLDER_PLACEHOLDER"
+    }
+  ]
+}
