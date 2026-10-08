@@ -1,0 +1,29 @@
+# File inventory: jadorkor-certification-app
+
+Reviewed commit: `b8ca8be1c284d581391e7382cfcd07757b205fd9` (working tree also contains uncommitted changes to `src/App.tsx`, `src/App.test.tsx`, and new `src/assets/*` files; all were reviewed).
+
+Scope: every `.ts`/`.tsx` under `src/` except `node_modules`, `dist`, `.cognite-bundles`, plus config files.
+
+| File | Structure | Quality | Patterns | Tests | Notes |
+| ---- | --------- | ------- | -------- | ----- | ----- |
+| `src/main.tsx` | Entry | OK | Creates QueryClient at root | Exempt (bootstrap) | No ErrorBoundary; default query retry |
+| `src/App.tsx` | Root shell | OK | Context (`HostSyncContext`), `CogniteSdkProvider` | `App.test.tsx` | `connectToHostApp()` has no `.catch`; `errorFallback` never rendered |
+| `src/App.test.tsx` | Test | OK | Injected deps | n/a | Uses `new CogniteClient` (test only, allowed) |
+| `src/assets/AssetBrowserView.tsx` | View | OK | Pure render, VM consumer | `AssetBrowserView.test.tsx` | Good |
+| `src/assets/AssetBrowserStateProvider.tsx` | Context provider | OK | Shared state at root | None | Missing test |
+| `src/assets/AssetList.tsx` | View | OK | Props only | `AssetList.test.tsx` | Good |
+| `src/assets/AssetDetailPanel.tsx` | View | OK | Props only | `AssetDetailPanel.test.tsx` | 157 lines, presentational only |
+| `src/assets/AssetSearchBar.tsx` | View | OK | Local draft state only (non-host-synced) | `AssetSearchBar.test.tsx` | aria-labels present |
+| `src/assets/useAssetBrowserViewModel.ts` | ViewModel | OK | DI via `AssetBrowserViewModelContext` | `useAssetBrowserViewModel.test.tsx` | Host sync owned by VM (correct) |
+| `src/assets/useAssetService.ts` | Hook | OK | Uses `useCogniteSdk()` | None | Missing test |
+| `src/assets/AssetService.ts` | Service | OK | Interface `AssetService` + class | `AssetService.test.ts` | Search result capped at 50, no paging |
+| `src/assets/assetBrowserStorage.ts` | Context | OK | Context hook | None | Missing test |
+| `src/assets/assetBrowserState.ts` | Pure util | OK | Type guards, no `as` | `assetBrowserState.test.ts` | Good |
+| `src/assets/assetParsing.ts` | Pure util | OK | Type guards | `assetParsing.test.ts` | Good |
+| `src/assets/assetTypes.ts` | Types | OK | Types only | Exempt | Good |
+| `src/components/LoadableContent.tsx` | Shared component | OK | Generic | `LoadableContent.test.tsx` | Good |
+| `src/host/hostSync.ts` | Context | OK | Context hook | None | Trivial, missing test |
+| `src/lib/utils.ts` | Utility (`cn`) | OK | Pure | None | Never imported anywhere in `src/` (unused file) |
+| `src/__mocks__/assetFixtures.ts` | Test fixture | OK | Factories | Exempt | Good |
+
+Config files inspected: `vitest.config.ts`, `package.json`, `eslint.config.mjs`, `tsconfig.json`.
