@@ -1,7 +1,7 @@
 {
-  "name": "Placeholder App Name",
+  "name": "Asset Browser",
   "description": "App submission required for the Flows certification ",
-  "externalId": "jadorkor-certification-app",
+  "externalId": "asset-browser",
   "versionTag": "0.0.1",
   "infra": "appsApi",
   "deployments": [
