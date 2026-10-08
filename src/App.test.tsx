@@ -34,6 +34,16 @@ describe('App', () => {
     expect(screen.getByRole('searchbox', { name: 'Search assets' })).toBeInTheDocument();
   });
 
+  it('shows an error instead of loading forever when the host connection fails', async () => {
+    render(
+      <App deps={makeLoadingDeps()} connectToHostApp={() => Promise.reject(new Error('host unavailable'))} />,
+      { wrapper: Providers },
+    );
+
+    expect(await screen.findByText('Failed to connect to Fusion host')).toBeInTheDocument();
+    expect(screen.queryByText('Loading project...')).not.toBeInTheDocument();
+  });
+
   it('restores the search query from the host initial state', async () => {
     const initialState = serializeBrowserState({ query: 'tequila' });
     render(<App deps={makeDeps()} connectToHostApp={() => Promise.resolve({ api: makeApi(), initialState })} />, {

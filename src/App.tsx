@@ -48,18 +48,26 @@ type AppProps = {
 
 function App({ deps, connectToHostApp = deps?.connectToHostApp ?? connectToHostAppImpl }: AppProps) {
   const [connection, setConnection] = useState<AppConnectResult | null>(null);
+  const [connectFailed, setConnectFailed] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
-    void connectToHostApp().then((result) => {
-      if (!cancelled) setConnection(result);
-    });
+    connectToHostApp().then(
+      (result) => {
+        if (!cancelled) setConnection(result);
+      },
+      () => {
+        if (!cancelled) setConnectFailed(true);
+      },
+    );
     return () => {
       cancelled = true;
     };
   }, [connectToHostApp]);
 
   const hostSync = useMemo(() => ({ sync: connection?.api ?? null }), [connection]);
+
+  if (connectFailed) return errorFallback;
 
   return (
     <CogniteSdkProvider loadingFallback={loadingFallback} errorFallback={errorFallback} deps={deps}>
